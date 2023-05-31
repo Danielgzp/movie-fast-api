@@ -1,7 +1,6 @@
 from fastapi import  Path, Query, Depends, APIRouter
 from fastapi.responses import JSONResponse
 from config.database import Session
-from models.movie import Movie as MovieModel
 from fastapi.encoders import jsonable_encoder
 from middlewares.jwt_bearer import JWTBearer
 from services.movie import MovieService
@@ -9,6 +8,7 @@ from schemas.movie import Movie
 
 movie_router = APIRouter()
 
+#Ruta protegida por un token de inicio de seison de usuario
 @movie_router.get('/movies', tags=['movies'], dependencies=[Depends(JWTBearer())])
 def get_movies():
     db = Session()
